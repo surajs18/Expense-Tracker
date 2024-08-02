@@ -1,8 +1,12 @@
 import LoginImg from "../assets/Login.svg";
-import LoginForm from "../components/Forms/LoginForm";
+import SignupForm from "../components/Forms/SignupForm";
 
-export default function LoginPage() {
-  const sendUserData = (data) => {
+export default function SignupPage() {
+  const UserDataSubmittion = (data) => {
+    console.log(data);
+  };
+
+  const OtpDataSubmittion = (data) => {
     console.log(data);
   };
 
@@ -16,9 +20,12 @@ export default function LoginPage() {
       />
       <div className="flex flex-col justify-center gap-10 mx-auto w-[50%] h-screen">
         <h3 className="text-5xl font-bold cursor-default text-center">
-          Sign In
+          Sign Up
         </h3>
-        <LoginForm sendUserData={sendUserData} />
+        <SignupForm
+          setUserData={UserDataSubmittion}
+          setOtpData={OtpDataSubmittion}
+        />
       </div>
     </div>
   );

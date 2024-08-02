@@ -6,7 +6,7 @@ function App() {
     <div className="bg-[#000] text-[#FCF8D9] min-h-screen">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LoginRoute />} />
+          <Route path="/*" element={<LoginRoute />} />
         </Routes>
       </BrowserRouter>
     </div>
