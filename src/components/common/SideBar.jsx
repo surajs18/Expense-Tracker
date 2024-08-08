@@ -15,7 +15,11 @@ export default function SideBar() {
       icon: <BiCategory key={1} className={css} />,
       url: "/user",
     },
-    { title: "All Transactions", icon: <FaBook key={2} className={css} /> },
+    {
+      title: "All Transactions",
+      icon: <FaBook key={2} className={css} />,
+      url: "/user/transaction",
+    },
     {
       title: "Add Expense",
       icon: <GiTakeMyMoney key={3} className={css} />,
@@ -26,7 +30,11 @@ export default function SideBar() {
       icon: <GiReceiveMoney key={4} className={css} />,
       url: "/user/income",
     },
-    { title: "Profile", icon: <FaUserCog key={6} className={css} /> },
+    {
+      title: "Profile",
+      icon: <FaUserCog key={6} className={css} />,
+      url: "/user/profile",
+    },
     { title: "Logout", icon: <MdLogout key={7} className={css} /> },
   ];
 
