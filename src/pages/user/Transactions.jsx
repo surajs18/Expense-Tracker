@@ -4,6 +4,7 @@ import TransactionCard from "../../components/common/TransactionCard";
 
 export default function Transactions() {
   const [search, setSearch] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [transactionList, setTransactionList] = useState([
     {
       _id: "",
@@ -16,29 +17,24 @@ export default function Transactions() {
   const [transactions, setTransactions] = useState(transactionList);
 
   useEffect(() => {
-    function updateTransactions() {
-      const list = transactionList?.filter((transaction) => {
-        if (
-          transaction?.category
-            ?.toLocaleLowerCase()
-            ?.startsWith(search?.toLocaleLowerCase()) ||
-          transaction?.description
-            ?.toLocaleLowerCase()
-            ?.startsWith(search?.toLocaleLowerCase())
-        )
-          return transaction;
-      });
-      setTransactions(list);
-    }
-
-    updateTransactions();
-  }, [search, transactionList, transactions]);
+    const list = transactionList.filter((transaction) => {
+      return (
+        transaction?.category
+          ?.toLocaleLowerCase()
+          ?.startsWith(search?.toLocaleLowerCase()) ||
+        transaction?.description
+          ?.toLocaleLowerCase()
+          ?.startsWith(search?.toLocaleLowerCase())
+      );
+    });
+    setTransactions(list);
+  }, [search, transactionList, setTransactionList]);
 
   return (
-    <div className="flex w-[100vw]">
+    <>
       <SideBar />
-      <div className="w-full">
-        <h3 className="text-3xl text-[#FCF8D9] my-5 font-semibold ml-[10%] mt-10">
+      <div className=" ml-[5rem]">
+        <h3 className="text-3xl text-[#FCF8D9] mb-5 font-semibold ml-[10%] pt-10">
           View Transactions
         </h3>
         <div className="ml-[10%] w-[80%] flex justify-between flex-wrap mb-16 items-center">
@@ -61,6 +57,6 @@ export default function Transactions() {
           />
         ))}
       </div>
-    </div>
+    </>
   );
 }

@@ -3,7 +3,7 @@ import ExpenseForm from "../../components/Forms/ExpenseForm";
 
 export default function InputExpense() {
   return (
-    <div className="flex w-[100vw] addForm">
+    <div className=" ml-[5rem] addForm">
       <SideBar />
       <ExpenseForm />
     </div>

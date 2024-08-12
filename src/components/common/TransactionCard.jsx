@@ -9,7 +9,7 @@ export default function TransactionCard({
   const css = "text-black text-2xl md:text-3xl m-auto p-auto";
 
   const displayDate = new Date(date);
-  console.log(displayDate);
+  // console.log(displayDate);
   return (
     <div className="flex border-t-2 border-dashed border-white items-center justify-between h-fit w-full md:w-[80%] mx-auto p-3 md:p-5">
       <div className="flex items-center justify-center gap-3">

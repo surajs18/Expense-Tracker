@@ -3,7 +3,7 @@ import IncomeForm from "../../components/Forms/IncomeForm";
 
 export default function InputIncome() {
   return (
-    <div className="flex w-[100vw] addForm">
+    <div className=" ml-[5rem] addForm">
       <SideBar />
       <IncomeForm />
     </div>

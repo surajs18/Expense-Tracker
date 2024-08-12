@@ -39,7 +39,7 @@ export default function SideBar() {
   ];
 
   return (
-    <div className="w-[4rem] h-screen bg-[#2D2D2D] flex flex-col items-center justify-center cursor-pointer">
+    <div className="w-[4rem] h-screen bg-[#2D2D2D] flex flex-col items-center justify-center cursor-pointer fixed left-0 top-0">
       {icons.map((icon, index) => (
         <div
           title={icon?.title}
