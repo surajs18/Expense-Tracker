@@ -21,7 +21,7 @@ export default function SignupForm({ setUserData }) {
   // };
 
   return (
-    <div>
+    <div className="mx-auto">
       {/* {switchForm ? ( */}
       <form className="flex flex-col gap-5 mx-auto" onSubmit={dataSubmit}>
         <div className="flex flex-col">
@@ -43,7 +43,6 @@ export default function SignupForm({ setUserData }) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="bg-black text-white py-0.5 px-1.5 border-2 focus:border-white focus:outline-none rounded-lg h-[2.5rem] w-[18rem]"
-            autoFocus
             required
             placeholder="Eg. harish@gmail.com"
           />

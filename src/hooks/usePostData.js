@@ -1,48 +1,38 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
-export default function usePostData(deps = [], url = "") {
-  const [data, setData] = useState(null);
-  const [err, setErr] = useState(false);
-  const [message, setMessage] = useState(null);
-  const [sendData, setSendData] = useState(null);
-
+export default function usePostData(url = "") {
   const at = Cookies.get("at");
-  const preUrl = "http://localhost:5000";
+  const preUrl = "http://localhost:5010";
 
-  useEffect(() => {
-    const controller = new AbortController();
+  const fetchData = async (postData) => {
+    console.log("executing post...");
+    try {
+      const res = await axios.post(`${preUrl}${url}`, {
+        headers: { Authorization: `Bearer ${at}` },
+        data: postData,
+      });
+      console.log(res);
+      const response = await res;
+      console.log(response);
 
-    const fetchData = async () => {
-      try {
-        const res = axios.post(`${preUrl}${url}`, {
-          headers: { Authorization: `Bearer ${at}` },
-          data: sendData,
-        });
-        const response = await res;
-        setData(response?.data?.payload);
+      if (response?.data?.success === true) {
+        return {
+          data: response?.data?.payload,
+          err: false,
+          message: response?.data?.message,
+          at,
+        };
+      } else return { data: null, err: true, message: response?.data?.message };
+    } catch (err) {
+      console.log(err);
+      return {
+        data: null,
+        err: true,
+        message: "Some error occured. Try again!!!",
+      };
+    }
+  };
 
-        if (
-          response?.data?.statusCode === 200 ||
-          response?.data?.statusCode === 201
-        )
-          setErr(false);
-        else setErr(true);
-
-        setMessage(response?.data?.message);
-      } catch (err) {
-        setErr(true);
-        setMessage("Some error occured. Try again!!!");
-        console.log(err);
-      }
-    };
-    fetchData();
-
-    return () => {
-      controller.abort();
-    };
-  }, [...deps, sendData, url, at]);
-
-  return { data, err, message, setSendData };
+  return fetchData;
 }

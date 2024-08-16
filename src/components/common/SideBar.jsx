@@ -3,11 +3,18 @@ import { FaBook, FaUserCog } from "react-icons/fa";
 import { GiTakeMyMoney, GiReceiveMoney } from "react-icons/gi";
 import { MdLogout } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function SideBar() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const css = "text-black text-3xl m-auto p-auto";
+
+  const logout = () => {
+    Cookies.remove("at");
+    Cookies.remove("rt");
+    navigate("/");
+  };
 
   const icons = [
     {
@@ -35,7 +42,6 @@ export default function SideBar() {
       icon: <FaUserCog key={6} className={css} />,
       url: "/user/profile",
     },
-    { title: "Logout", icon: <MdLogout key={7} className={css} /> },
   ];
 
   return (
@@ -52,6 +58,13 @@ export default function SideBar() {
           {icon?.icon}
         </div>
       ))}
+      <div
+        title={"Logout"}
+        className={`duration-500 w-[3rem] h-[3rem] bg-white rounded-full hover:bg-[#51D289] mx-auto flex items-center justify-center mb-10 `}
+        onClick={logout}
+      >
+        <MdLogout key={7} className={css} />
+      </div>
     </div>
   );
 }

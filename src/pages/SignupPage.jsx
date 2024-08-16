@@ -1,21 +1,26 @@
+import { useNavigate } from "react-router-dom";
 import LoginImg from "../assets/Login.svg";
 import SignupForm from "../components/Forms/SignupForm";
 import usePostData from "../hooks/usePostData";
 
 export default function SignupPage() {
-  const { data, err, message, setSendData } = usePostData(
-    [],
-    "/api/v1/auth/register"
-  );
+  const fetchData = usePostData("/api/v1/auth/register");
+  const navigate = useNavigate();
 
-  const UserDataSubmittion = (sendData) => {
+  const UserDataSubmittion = async (sendData) => {
     console.log(sendData);
-    setSendData(sendData);
-    if (err) {
-      alert(message);
-    } else {
-      alert(`User with email: ${data?.email} is successfully registered.`);
-    }
+    const { data, err, message } = await fetchData(sendData);
+    setTimeout(() => {
+      if (err) {
+        alert(message);
+      } else {
+        alert(
+          `User with email: ${data?.user?.email} is successfully registered.`
+        );
+        console.log(data, err, message);
+        navigate("/");
+      }
+    }, 500);
   };
 
   const OtpDataSubmittion = (data) => {
