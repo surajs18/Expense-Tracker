@@ -3,10 +3,8 @@ import SideBar from "../../components/common/SideBar";
 import Cookies from "js-cookie";
 
 export default function UserProfile() {
-  const user = JSON.parse(Cookies.get("user"));
+  const [user] = useState(JSON.parse(Cookies.get("user")));
   console.log(user);
-  const email = "surajs@pentagonspace.in";
-  const name = "Suraj S";
   const [password, setPassword] = useState("");
   const [enablePassword, setEnablePassword] = useState(false);
 
@@ -23,8 +21,8 @@ export default function UserProfile() {
           User Profile
         </h3>
         <div className="flex flex-col justify-center items-center gap-5 h-[90vh]">
-          <p className="text-xl font-semibold">Name: {name}</p>
-          <p className="text-xl font-semibold">Email: {email}</p>
+          <p className="text-xl font-semibold">Name: {user?.name}</p>
+          <p className="text-xl font-semibold">Email: {user?.email}</p>
           <button
             className="px-3 py-2 bg-[#51D289] w-fit mx-auto "
             onClick={() => setEnablePassword((prev) => !prev)}

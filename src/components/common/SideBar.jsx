@@ -13,6 +13,7 @@ export default function SideBar() {
   const logout = () => {
     Cookies.remove("at");
     Cookies.remove("rt");
+    Cookies.remove("user");
     navigate("/");
   };
 
