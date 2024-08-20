@@ -5,7 +5,7 @@ import usePostData from "../hooks/usePostData";
 import Cookies from "js-cookie";
 
 export default function LoginPage() {
-  const fetchData = usePostData("/api/v1/auth/login");
+  const fetchData = usePostData("/auth/login");
   const navigate = useNavigate();
 
   const sendUserData = async (sendData) => {
@@ -16,6 +16,7 @@ export default function LoginPage() {
     } else {
       Cookies.set("at", data?.accessToken, { expires: 1 });
       Cookies.set("rt", data?.refreshToken);
+      Cookies.set("user", JSON.stringify(data?.user));
       alert(`Logging in user with email: ${data?.user?.email}`);
       console.log("Response: ", { data, err, message, at });
       navigate("/user");

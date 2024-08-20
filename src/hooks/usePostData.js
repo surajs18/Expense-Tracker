@@ -1,17 +1,15 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-export default function usePostData(url = "") {
+export default function usePostData(url = "/") {
   const at = Cookies.get("at");
-  const preUrl = "http://localhost:5010";
+  const preUrl = "http://localhost:5010/api/v1";
 
   const fetchData = async (postData) => {
     console.log("executing post...");
     try {
-      const res = await axios.post(`${preUrl}${url}`, {
-        headers: { Authorization: `Bearer ${at}` },
-        data: postData,
-      });
+      axios.defaults.headers.common.Authorization = `Bearer ${at}`;
+      const res = await axios.post(`${preUrl}${url}`, postData);
       console.log(res);
       const response = await res;
       console.log(response);

@@ -4,7 +4,7 @@ import SignupForm from "../components/Forms/SignupForm";
 import usePostData from "../hooks/usePostData";
 
 export default function SignupPage() {
-  const fetchData = usePostData("/api/v1/auth/register");
+  const fetchData = usePostData("/auth/register");
   const navigate = useNavigate();
 
   const UserDataSubmittion = async (sendData) => {
