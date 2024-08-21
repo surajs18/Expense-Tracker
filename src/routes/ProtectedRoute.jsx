@@ -24,13 +24,11 @@ export default function ProtectedRoute({ children }) {
     }
   }, [at, res]);
 
-  const { data, error, message } = useGetData(
-    user ? `/user/${user._id}` : null,
-    [user]
-  );
+  const { data, error } = useGetData(user ? `/user/${user._id}` : null, [user]);
 
   if (loggedIn && !error) {
-    console.log({ status: "logged In", data, error, message });
+    console.log({ status: "logged In", user: data?.user });
+    // Cookies.set("user", JSON.stringify(data?.user));
     return <>{children}</>;
   } else {
     return (

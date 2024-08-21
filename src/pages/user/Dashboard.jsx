@@ -42,7 +42,7 @@ export default function Dashboard() {
       <div className="py-16 cursor-default ml-[5rem]">
         <h3 className="text-4xl font-semibold">Hello, {userName}</h3>
 
-        <div className="flex flex-wrap items-center justify-around gap-10 w-[89vw] my-10">
+        <div className="flex flex-wrap items-center justify-around gap-10 w-[75vw] md:w-[89vw] my-10">
           {transactions.map((transaction, index) => (
             <div className="w-[15rem] py-10 bg-[#2D2D2D] mx-auto" key={index}>
               <h4 className="text-3xl font-semibold text-center">

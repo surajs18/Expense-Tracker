@@ -1,19 +1,32 @@
 import { useEffect, useState } from "react";
 import SideBar from "../../components/common/SideBar";
 import TransactionCard from "../../components/common/TransactionCard";
+import useGetData from "../../hooks/useGetData";
 
 export default function Transactions() {
   const [search, setSearch] = useState("");
   // eslint-disable-next-line no-unused-vars
-  const [transactionList, setTransactionList] = useState([
-    {
-      _id: "",
-      amount: 5000,
-      category: "Rent",
-      description: "Rent",
-      date: "2024-03-15",
-    },
-  ]);
+
+  const { data, error, message } = useGetData("/balance/transactions", []);
+
+  console.log({ error, message, data });
+  // Sample Data
+  // {
+  //   _id: "",
+  //   amount: 5000,
+  //   category: "Rent",
+  //   description: "Rent",
+  //   date: "2024-03-15",
+  // },
+
+  const [transactionList, setTransactionList] = useState(data || []);
+
+  useEffect(() => {
+    // console.clear();
+    console.log(data);
+    data && setTransactionList(data);
+  }, [data, transactionList]);
+
   const [transactions, setTransactions] = useState(transactionList);
 
   useEffect(() => {
