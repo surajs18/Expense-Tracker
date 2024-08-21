@@ -1,14 +1,39 @@
+import { useState } from "react";
 import GraphGenerator from "../../components/Charts/GraphGenerator";
 import SideBar from "../../components/common/SideBar";
 import { FaRupeeSign } from "react-icons/fa";
+import Cookies from "js-cookie";
+import useGetData from "../../hooks/useGetData";
 
 export default function Dashboard() {
-  const userName = "Suraj";
+  const [userName] = useState(JSON.parse(Cookies.get("user"))?.name);
+
+  const {
+    data: balance,
+    error: balanceError,
+    message: balanceMessage,
+  } = useGetData("/balance", []);
+  const {
+    data: income,
+    error: incomeError,
+    message: incomeMessage,
+  } = useGetData("/income", []);
+  const {
+    data: expense,
+    error: expenseError,
+    message: expenseMessage,
+  } = useGetData("/expense", []);
+
+  console.log({
+    balance: { balanceError, balanceMessage },
+    income: { incomeError, incomeMessage },
+    expense: { expenseError, expenseMessage },
+  });
 
   const transactions = [
-    { title: "Total Income", amount: "12345" },
-    { title: "Total Expense", amount: "12345" },
-    { title: "Total Balance", amount: "12345" },
+    { label: "Total Income", value: income || 0 },
+    { label: "Total Expense", value: expense || 0 },
+    { label: "Total Balance", value: balance || 0 },
   ];
 
   return (
@@ -21,38 +46,30 @@ export default function Dashboard() {
           {transactions.map((transaction, index) => (
             <div className="w-[15rem] py-10 bg-[#2D2D2D] mx-auto" key={index}>
               <h4 className="text-3xl font-semibold text-center">
-                {transaction.title}
+                {transaction.label}
               </h4>
               <h5 className="text-2xl font-semibold pt-5 flex items-center justify-center">
                 <FaRupeeSign />
-                {transaction.amount}
+                {transaction.value}
               </h5>
             </div>
           ))}
         </div>
         <GraphGenerator
-          data={[
-            { label: "First", value: 5 },
-            { label: "Second", value: 10 },
-            { label: "Third", value: 7 },
-          ]}
+          data={[...transactions]}
           type="Bar"
-          x="X axis"
-          y="Y axis"
-          title="Chart"
+          x="Transanctions"
+          y="Amount"
+          title="Transaction Analysis"
         />
         <GraphGenerator
-          data={[
-            { label: "First", value: 5 },
-            { label: "Second", value: 10 },
-            { label: "Third", value: 7 },
-          ]}
+          data={[...transactions]}
           type="Doughnut"
-          x="X axis"
-          y="Y axis"
-          title="Doughnut"
+          x="Transanctions"
+          y="Amount"
+          title="Transaction Analysis"
         />
-        <GraphGenerator
+        {/* <GraphGenerator
           data={[
             { label: "First", value: 5 },
             { label: "Second", value: 10 },
@@ -106,7 +123,7 @@ export default function Dashboard() {
           x="X axis"
           y="Y axis"
           title="Doughnut"
-        />
+        /> */}
       </div>
     </>
   );
