@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function IncomeForm() {
+export default function IncomeForm({ submitFormData }) {
   const [expenseDate, setExpenseDate] = useState("");
   const [spent, setSpent] = useState("");
   const [desc, setDesc] = useState("");
@@ -8,7 +8,7 @@ export default function IncomeForm() {
 
   const submitForm = (e) => {
     e.preventDefault();
-    console.log({ incomeDate: expenseDate, received: spent, desc, source });
+    submitFormData({ incomeDate: expenseDate, received: spent, desc, source });
     setExpenseDate("");
     setSpent("");
     setDesc("");
