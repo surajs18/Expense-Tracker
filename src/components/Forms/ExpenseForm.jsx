@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Select from "react-select";
 
-export default function ExpenseForm() {
+export default function ExpenseForm({ submitFormData, getCategoryData }) {
   const [expenseDate, setExpenseDate] = useState("");
   const [spent, setSpent] = useState("");
   const [desc, setDesc] = useState("");
@@ -10,16 +10,20 @@ export default function ExpenseForm() {
   const [checked, setChecked] = useState(false);
   const [createCategory, setCreateCategory] = useState("");
 
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-  ];
+  const options = getCategoryData?.map((cat) => {
+    return { value: cat?._id, label: cat?.name };
+  });
+  console.log(options);
+  //  [
+  //   { value: "chocolate", label: "Chocolate" },
+  //   { value: "strawberry", label: "Strawberry" },
+  //   { value: "vanilla", label: "Vanilla" },
+  // ];
 
   const submitForm = (e) => {
     e.preventDefault();
     if (checked)
-      console.log({
+      submitFormData({
         expenseDate,
         spent,
         desc,
@@ -27,14 +31,20 @@ export default function ExpenseForm() {
         newCategory: true,
       });
     else
-      console.log({ expenseDate, spent, desc, category, newCategory: false });
+      submitFormData({
+        expenseDate,
+        spent,
+        desc,
+        category,
+        newCategory: false,
+      });
 
-    setExpenseDate("");
-    setSpent("");
-    setDesc("");
-    setCategory("");
-    setChecked(false);
-    setCreateCategory("");
+    // setExpenseDate("");
+    // setSpent("");
+    // setDesc("");
+    // setCategory("");
+    // setChecked(false);
+    // setCreateCategory("");
   };
 
   return (
