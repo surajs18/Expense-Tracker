@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import SideBar from "../../components/common/SideBar";
 import ExpenseForm from "../../components/Forms/ExpenseForm";
 import useGetData from "../../hooks/useGetData";
@@ -5,6 +6,7 @@ import usePostData from "../../hooks/usePostData";
 import { useState } from "react";
 
 export default function InputExpense() {
+  const navigate = useNavigate();
   const {
     data: getCategoryData,
     error: getCategoryError,
@@ -95,6 +97,7 @@ export default function InputExpense() {
           alert("Not able to create such expense. Try again!");
         });
     }
+    navigate("/user/transaction");
   };
 
   return (

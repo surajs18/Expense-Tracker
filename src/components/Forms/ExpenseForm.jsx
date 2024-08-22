@@ -39,12 +39,12 @@ export default function ExpenseForm({ submitFormData, getCategoryData }) {
         newCategory: false,
       });
 
-    // setExpenseDate("");
-    // setSpent("");
-    // setDesc("");
-    // setCategory("");
-    // setChecked(false);
-    // setCreateCategory("");
+    setExpenseDate("");
+    setSpent("");
+    setDesc("");
+    setCategory("");
+    setChecked(false);
+    setCreateCategory("");
   };
 
   return (
