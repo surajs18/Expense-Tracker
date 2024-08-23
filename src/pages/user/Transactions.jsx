@@ -9,7 +9,7 @@ export default function Transactions() {
 
   const { data, error, message } = useGetData("/balance/transactions", []);
 
-  console.log({ error, message, data });
+  // console.log({ error, message, data });
   // Sample Data
   // {
   //   _id: "",
@@ -60,15 +60,26 @@ export default function Transactions() {
             className="py-2 px-3 text-black outline-none rounded-full"
           />
         </div>
-        {transactions?.map((transaction) => (
-          <TransactionCard
-            key={transaction?._id}
-            description={transaction?.description}
-            date={transaction?.date}
-            category={transaction?.category}
-            amount={transaction?.amount}
-          />
-        ))}
+        {error && (
+          <p className="text-center font-bold font-lg text-red-500 ">
+            {message}
+          </p>
+        )}
+        {transactions.length > 0 ? (
+          transactions?.map((transaction) => (
+            <TransactionCard
+              key={transaction?._id}
+              description={transaction?.description}
+              date={transaction?.date}
+              category={transaction?.category}
+              amount={transaction?.amount}
+            />
+          ))
+        ) : (
+          <p className="text-center font-bold font-lg ">
+            No records to display
+          </p>
+        )}
       </div>
     </>
   );

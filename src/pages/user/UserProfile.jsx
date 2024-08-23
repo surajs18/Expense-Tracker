@@ -1,15 +1,21 @@
 import { useState } from "react";
 import SideBar from "../../components/common/SideBar";
 import Cookies from "js-cookie";
+import usePutData from "../../hooks/usePutData";
 
 export default function UserProfile() {
   const [user] = useState(JSON.parse(Cookies.get("user")));
   console.log(user);
+
+  const updateData = usePutData(`/user/${user?._id}`);
+
   const [password, setPassword] = useState("");
   const [enablePassword, setEnablePassword] = useState(false);
 
-  const UpdatePass = () => {
+  const UpdatePass = async () => {
     console.log(password);
+    const { message } = await updateData({ password });
+    alert(message);
     setEnablePassword(false);
   };
 

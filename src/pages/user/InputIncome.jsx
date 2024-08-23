@@ -8,6 +8,7 @@ export default function InputIncome() {
   const navigate = useNavigate();
   const SubmitIncome = usePostData("/income");
 
+  // eslint-disable-next-line no-unused-vars
   const [income, setIncome] = useState({
     data: null,
     err: null,
@@ -15,6 +16,7 @@ export default function InputIncome() {
   });
 
   const submitForm = (sendData) => {
+    // eslint-disable-next-line no-unused-vars
     var data;
     SubmitIncome({
       category: sendData?.source,
@@ -36,7 +38,7 @@ export default function InputIncome() {
         });
         alert("Not able to create such income. Try again!");
       });
-    console.log(income, data);
+    // console.log(income, data);
     navigate("/user/transaction");
   };
 

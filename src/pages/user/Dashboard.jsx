@@ -24,11 +24,11 @@ export default function Dashboard() {
     message: expenseMessage,
   } = useGetData("/expense", []);
 
-  console.log({
-    balance: { balanceError, balanceMessage },
-    income: { incomeError, incomeMessage },
-    expense: { expenseError, expenseMessage },
-  });
+  // console.log({
+  //   balance: { balanceError, balanceMessage },
+  //   income: { incomeError, incomeMessage },
+  //   expense: { expenseError, expenseMessage },
+  // });
 
   const transactions = [
     { label: "Total Income", value: income || 0 },
@@ -55,6 +55,21 @@ export default function Dashboard() {
             </div>
           ))}
         </div>
+        {balanceError && (
+          <p className="text-center text-red-500 font-semibold`">
+            {balanceMessage}
+          </p>
+        )}
+        {incomeError && (
+          <p className="text-center text-red-500 font-semibold`">
+            {incomeMessage}
+          </p>
+        )}
+        {expenseError && (
+          <p className="text-center text-red-500 font-semibold`">
+            {expenseMessage}
+          </p>
+        )}
         <GraphGenerator
           data={[...transactions]}
           type="Bar"
