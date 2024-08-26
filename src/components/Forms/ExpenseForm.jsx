@@ -43,7 +43,6 @@ export default function ExpenseForm({ submitFormData, getCategoryData }) {
     setSpent("");
     setDesc("");
     setCategory("");
-    setChecked(false);
     setCreateCategory("");
   };
 

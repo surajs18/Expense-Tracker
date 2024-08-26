@@ -14,6 +14,7 @@ export default function InputExpense() {
   } = useGetData("/category", []);
   console.log({ getCategoryData, getCategoryError, getCategoryMessage });
 
+  // eslint-disable-next-line no-unused-vars
   const [categoryResponse, setCategoryResponse] = useState({
     data: null,
     err: null,
@@ -30,54 +31,58 @@ export default function InputExpense() {
   const CreateCategory = usePostData("/category");
   const SubmitExpense = usePostData("/expense");
 
-  const submitFormData = (sendData) => {
-    // eslint-disable-next-line no-unused-vars
-    var data;
-    if (sendData?.newCategory) {
-      CreateCategory({ name: sendData.category })
-        .then((res) => {
+  function addCategory(sendData) {
+    CreateCategory({ name: sendData.category })
+      .then(
+        (res) => {
           setCategoryResponse(res);
-          data = res;
-        })
-        .catch((err) => {
-          console.log(err);
-          setCategoryResponse({
-            data: null,
-            err: true,
-            message: "Not able to create such category. Try again!",
-          });
-          alert("Not able to create such category. Try again!");
+          addExpense1(sendData, res?.data?._id);
+        },
+        (rsn) => {
+          console.warn(rsn);
+        }
+      )
+      .catch((err) => {
+        console.log(err);
+        setCategoryResponse({
+          data: null,
+          err: true,
+          message: "Not able to create such category. Try again!",
         });
-      // console.log("object");
-      setTimeout(500);
-      console.log({ categoryResponse, data });
+        alert("Not able to create such category. Try again!");
+      });
+  }
 
-      if (categoryResponse?.data?._id) {
-        console.log(sendData);
-        SubmitExpense({
-          category: categoryResponse?.data?._id,
-          date: sendData?.expenseDate,
-          amount: sendData?.spent,
-          description: sendData?.desc,
-        })
-          .then((res) => {
-            setExpenseResponse(res);
-            data = res;
-            alert(res?.message);
-            navigate("/user/transaction");
-          })
-          .catch((err) => {
-            console.log(err);
-            setExpenseResponse({
-              data: null,
-              err: true,
-              message: "Not able to create such expense. Try again!",
-            });
-            alert("Not able to create such expense. Try again!");
-          });
-      }
+  const addExpense1 = (sendData, id) => {
+    console.log(sendData);
+    SubmitExpense({
+      category: id,
+      date: sendData?.expenseDate,
+      amount: sendData?.spent,
+      description: sendData?.desc,
+    })
+      .then(
+        (res) => {
+          setExpenseResponse(res);
+          alert(res?.message);
+          navigate("/user/transaction");
+        },
+        (rsn) => console.warn(rsn)
+      )
+      .catch((err) => {
+        console.log(err);
+        setExpenseResponse({
+          data: null,
+          err: true,
+          message: "Not able to create such expense. Try again!",
+        });
+        alert("Not able to create such expense. Try again!");
+      });
+  };
 
-      console.log(expenseResponse);
+  const submitFormData = (sendData) => {
+    if (sendData?.newCategory) {
+      addCategory(sendData);
     } else {
       console.log(sendData);
       SubmitExpense({
@@ -86,12 +91,14 @@ export default function InputExpense() {
         amount: sendData?.spent,
         description: sendData?.desc,
       })
-        .then((res) => {
-          setExpenseResponse(res);
-          data = res;
-          alert(res?.message);
-          navigate("/user/transaction");
-        })
+        .then(
+          (res) => {
+            setExpenseResponse(res);
+            alert(res?.message);
+            navigate("/user/transaction");
+          },
+          (rsn) => console.warn(rsn)
+        )
         .catch((err) => {
           console.log(err);
           setExpenseResponse({
