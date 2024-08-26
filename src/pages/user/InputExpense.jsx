@@ -49,10 +49,11 @@ export default function InputExpense() {
           alert("Not able to create such category. Try again!");
         });
       // console.log("object");
-      // console.log({ categoryResponse, data });
+      setTimeout(500);
+      console.log({ categoryResponse, data });
 
       if (categoryResponse?.data?._id) {
-        // console.log(sendData);
+        console.log(sendData);
         SubmitExpense({
           category: categoryResponse?.data?._id,
           date: sendData?.expenseDate,
@@ -63,6 +64,7 @@ export default function InputExpense() {
             setExpenseResponse(res);
             data = res;
             alert(res?.message);
+            navigate("/user/transaction");
           })
           .catch((err) => {
             console.log(err);
@@ -75,9 +77,9 @@ export default function InputExpense() {
           });
       }
 
-      // console.log(expenseResponse);
+      console.log(expenseResponse);
     } else {
-      // console.log(sendData);
+      console.log(sendData);
       SubmitExpense({
         category: sendData?.category?.value,
         date: sendData?.expenseDate,
@@ -88,6 +90,7 @@ export default function InputExpense() {
           setExpenseResponse(res);
           data = res;
           alert(res?.message);
+          navigate("/user/transaction");
         })
         .catch((err) => {
           console.log(err);
@@ -99,7 +102,6 @@ export default function InputExpense() {
           alert("Not able to create such expense. Try again!");
         });
     }
-    navigate("/user/transaction");
   };
 
   return (
