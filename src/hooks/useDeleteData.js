@@ -1,15 +1,15 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-export default function usePostData(url = "/") {
+export default function useDeleteData(url = "/") {
   const at = Cookies.get("at");
   const preUrl = "http://localhost:5010/api/v1";
 
-  const fetchData = async (postData) => {
-    console.log("executing post", url);
+  const deleteData = async (id) => {
+    console.log("executing delete", url);
     try {
       axios.defaults.headers.common.Authorization = `Bearer ${at}`;
-      const res = await axios.post(`${preUrl}${url}`, postData);
+      const res = await axios.delete(`${preUrl}${url}/${id}`);
       console.log(res);
       const response = await res;
       console.log(response);
@@ -32,5 +32,5 @@ export default function usePostData(url = "/") {
     }
   };
 
-  return fetchData;
+  return deleteData;
 }

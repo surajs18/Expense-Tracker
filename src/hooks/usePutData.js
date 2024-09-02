@@ -6,7 +6,7 @@ export default function usePutData(url = "/") {
   const preUrl = "http://localhost:5010/api/v1";
 
   const fetchData = async (postData) => {
-    console.log("executing post...");
+    console.log("executing put ", url);
     try {
       axios.defaults.headers.common.Authorization = `Bearer ${at}`;
       const res = await axios.put(`${preUrl}${url}`, postData);
