@@ -5,6 +5,7 @@ export default function TransactionCard({
   category = "",
   amount = "",
   date = "",
+  type = "",
 }) {
   const css = "text-black text-2xl md:text-3xl m-auto p-auto";
 
@@ -21,14 +22,21 @@ export default function TransactionCard({
         >
           <SiCodenewbie className={css} />
         </div>
-        <div>
+        <div className={type === "expense" ? "text-red-600" : ""}>
           <h5 className="text-2xl max-w-[9rem] overflow-x-hidden">
             {description}
           </h5>
           <p>Date: {displayDate.toLocaleDateString()}</p>
         </div>
       </div>
-      <h4 className="text-xl md:text-3xl text-center">{amount}</h4>
+      <h4
+        className={`text-xl md:text-3xl text-center ${
+          type === "expense" ? "text-red-600" : ""
+        }`}
+      >
+        {type === "expense" ? "-" : ""}
+        {amount}
+      </h4>
     </div>
   );
 }

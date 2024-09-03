@@ -73,6 +73,7 @@ export default function Transactions() {
               date={transaction?.date}
               category={transaction?.category}
               amount={transaction?.amount}
+              type={transaction?.type}
             />
           ))
         ) : (
